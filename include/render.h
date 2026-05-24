@@ -4,6 +4,6 @@
 #include "physics.h"
 #include <raylib.h>
 
-void RenderBodies(Body *bodies,int count);
+void RenderBodies(BodyList body_list);
 
 #endif

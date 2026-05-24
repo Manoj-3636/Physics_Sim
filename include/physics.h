@@ -10,6 +10,11 @@ typedef struct {
     Vector2 velocity;
 } Body;
 
-void UpdatePosition(Body *bodies,int count,float dt);
+typedef struct {
+    Body* bodies;
+    int size;
+} BodyList;
+
+void UpdatePosition(BodyList body_list,float dt);
 
 #endif

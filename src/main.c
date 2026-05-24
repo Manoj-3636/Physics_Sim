@@ -9,6 +9,8 @@ Body bodies[1] = {
     }
 };
 
+BodyList body_list = {bodies,1};
+
 int main() {
     InitWindow(1600,900,"Physics Simulation");
 
@@ -16,8 +18,8 @@ int main() {
         float dt = GetFrameTime();
         BeginDrawing();
         ClearBackground(BLACK);
-        UpdatePosition(bodies,sizeof(bodies)/sizeof(Body),dt);
-        RenderBodies(bodies,sizeof(bodies)/sizeof(Body));
+        UpdatePosition(body_list,dt);
+        RenderBodies(body_list);
         EndDrawing();
     }
 
