@@ -1,19 +1,15 @@
+#include <stdlib.h>
+
 #include "physics.h"
 #include "render.h"
+#include "demos.h"
 
-Body bodies[1] = {
-    {
-        {100,100},
-        {0,0},
-        {200,0}
-    }
-};
 
-BodyList body_list = {bodies,1};
+
 
 int main() {
     InitWindow(1600,900,"Physics Simulation");
-
+    BodyList body_list = SetupMovingBlock();
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
         BeginDrawing();
@@ -23,6 +19,7 @@ int main() {
         EndDrawing();
     }
 
+    DestroyBodyList(body_list);
     CloseWindow();
     return 0;
 }
