@@ -14,10 +14,10 @@ typedef struct {
     Vector2 size;
     Vector2 position;
     Vector2 velocity;
-} Body;
+} RigidBody;
 
 typedef struct {
-    Body* bodies;
+    RigidBody* bodies;
     int size;
 } BodyList;
 

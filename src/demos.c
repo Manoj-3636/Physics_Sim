@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 BodyList SetupMovingBlock() {
-    Body *bodies = malloc(sizeof(Body));
+    RigidBody *bodies = malloc(sizeof(RigidBody));
 
-    bodies[0] = (Body){
+    bodies[0] = (RigidBody){
         SHAPE_CIRCLE,
         {50, 50},
         {100, 100},

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "physics.h"
@@ -8,7 +9,10 @@
 
 
 int main() {
-    InitWindow(1600,900,"Physics Simulation");
+    InitWindow(1600,980,"Physics Simulation");
+    int monitor = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+
     BodyList body_list = SetupMovingBlock();
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
