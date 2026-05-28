@@ -8,6 +8,8 @@ add_executable(sim
         src/physics.c
         src/render.c
         src/demos.c
+        include/rigidbody.h
+        src/rigidbody.c
 )
 
 add_library(raylib STATIC IMPORTED)

@@ -1,28 +1,30 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#include <raylib.h>
-#include <raymath.h>
-
-typedef enum {
-    SHAPE_CIRCLE,
-    SHAPE_RECT,
-} Shape;
+#include "rigidbody.h"
 
 typedef struct {
-    Shape shape;
-    Vector2 size;
-    Vector2 position;
-    Vector2 velocity;
-} RigidBody;
+    RigidBody* anchor1;
+    RigidBody* anchor2;
+    float stiffness;
+    float rest_length;
+} Spring;
 
 typedef struct {
     RigidBody* bodies;
     int size;
 } BodyList;
 
+typedef struct {
+    Spring* springs;
+    int size;
+} SpringList;
+
 void DestroyBodyList(BodyList list);
 
 void UpdatePosition(BodyList body_list,float dt);
 
+void ApplySpringForce(SpringList spring_list);
+
+void ApplyGravity(BodyList body_list);
 #endif
