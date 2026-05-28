@@ -13,9 +13,8 @@ typedef enum {
 } Shape;
 
 typedef struct {
-    bool fixed;
     Shape shape;
-    float mass;
+    float mass; // For fixed use mass as 0.0f
     Vector2 size;
     Vector2 position;
     Vector2 velocity;

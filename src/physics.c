@@ -6,11 +6,24 @@
 float getSpringExtension(Spring spring);
 
 void UpdatePosition(BodyList body_list, float dt) {
+    RigidBody *bodies = body_list.bodies;
     for (int i = 0;i<body_list.size;i++) {
-        // bodies[i].position.x += bodies[i].velocity.x * dt;
-        // bodies[i].position.y += bodies[i].velocity.y * dt;
-        RigidBody *bodies = body_list.bodies;
+        if (bodies[i].mass <= 0.0f) continue;
         bodies[i].position = Vector2Add(bodies[i].position,Vector2Scale(bodies[i].velocity,dt));
+    }
+}
+
+void UpdateVelocity(BodyList body_list,float dt) {
+    RigidBody *bodies = body_list.bodies;
+    for (int i = 0;i<body_list.size;i++) {
+        if (bodies[i].mass <= 0.0f) continue;
+        bodies[i].velocity = Vector2Add(bodies[i].velocity,Vector2Scale(bodies[i].net_force,dt/bodies[i].mass));
+    }
+}
+
+void ResetNetForce(BodyList body_list) {
+    for (int i = 0;i<body_list.size;i++) {
+        body_list.bodies[i].net_force = (Vector2){0.0f,0.0f};
     }
 }
 
@@ -34,7 +47,7 @@ void ApplySpringForce(SpringList spring_list) {
 
 void ApplyGravity(BodyList body_list) {
     for (int i = 0;i<body_list.size;i++) {
-        body_list.bodies[i].net_force = Vector2Add(body_list.bodies[i].net_force,Vector2{0,9.8 * body_list.bodies[i].mass});
+        body_list.bodies[i].net_force = Vector2Add(body_list.bodies[i].net_force,(Vector2){0,980.0f * body_list.bodies[i].mass});
     }
 }
 
