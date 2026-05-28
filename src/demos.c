@@ -16,7 +16,7 @@
 // }
 
 BodyList SetupSpringPendulum() {
-    RigidBody *bodies = malloc(sizeof(RigidBody) * 2);
+    RigidBody *bodies = malloc(sizeof(RigidBody) * 3);
 
     bodies[0] = (RigidBody){
         SHAPE_CIRCLE,
@@ -36,5 +36,14 @@ BodyList SetupSpringPendulum() {
         {0,0}
     };
 
-    return (BodyList){bodies,2};
+    bodies[2]= (RigidBody){
+        SHAPE_CIRCLE,
+        2.0f,
+        {25,25},
+        {800,325},
+        {100,0},
+        {0,0}
+    };
+
+    return (BodyList){bodies,3};
 }

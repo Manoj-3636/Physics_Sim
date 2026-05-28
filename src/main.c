@@ -10,13 +10,19 @@
 
 int main() {
     InitWindow(1600,980,"Physics Simulation");
-    int monitor = GetCurrentMonitor();
-
+    //TODO make the whole structure better
     BodyList body_list = SetupSpringPendulum();
-    SpringList spring_list ={ malloc(sizeof(Spring)),1};
+    SpringList spring_list ={ malloc(sizeof(Spring) * 2),2};
     spring_list.springs[0] = (Spring){
         &body_list.bodies[0],
         &body_list.bodies[1],
+        20,
+        25
+    };
+
+    spring_list.springs[1] = (Spring){
+        &body_list.bodies[1],
+        &body_list.bodies[2],
         20,
         25
     };
