@@ -11,6 +11,8 @@ add_executable(sim
         include/rigidbody.h
         src/rigidbody.c
         include/world.h
+        include/stats.h
+        src/stats.c
 )
 
 add_library(raylib STATIC IMPORTED)

@@ -4,6 +4,9 @@
 #include "world.h"
 #include <raylib.h>
 
-void RenderBodies(World* w);
+#include "stats.h"
+
+void RenderWorld(World* w);
+void RenderStatsHUD(Stats *s);
 
 #endif

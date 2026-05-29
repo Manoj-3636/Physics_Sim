@@ -5,30 +5,31 @@
 #include "physics.h"
 #include "render.h"
 #include "demos.h"
-
-
+#include "stats.h"
 
 
 int main() {
-    InitWindow(1600,980,"Physics Simulation");
+    InitWindow(2200,1200,"Physics Simulation");
+    SetTargetFPS(120);
     //TODO make the whole structure better
-    //First make a world object to hold springs and bodies
-    //Next make a ComputeForces on the world and so on, all functions to be called on this world object
-    //Have a UpdateWorld(Method) function for ease of switching out the ODE solver
     //Make a ui element on the top left of the window that shows total energy initial energy and fps and
     // other statistics
-
-
-
+    Stats* stats = InitializeStats();
     World* world = SetupSpringPendulum();
+
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
-        BeginDrawing();
-        ClearBackground(BLACK);
+
+
         ResetNetForces(world);
         ComputeNetForces(world);
         StepSymplecticEuler(world,dt);
-        RenderBodies(world);
+        UpdateStats(stats,world);
+
+        BeginDrawing();
+        ClearBackground(BLACK);
+        RenderWorld(world);
+        RenderStatsHUD(stats);
         EndDrawing();
     }
 
