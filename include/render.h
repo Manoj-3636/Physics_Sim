@@ -4,6 +4,6 @@
 #include "world.h"
 #include <raylib.h>
 
-void RenderBodies(BodyList body_list);
+void RenderBodies(World* w);
 
 #endif

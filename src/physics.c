@@ -5,30 +5,29 @@
 
 float getSpringExtension(Spring spring);
 
-void UpdatePosition(BodyList body_list, float dt) {
-    RigidBody *bodies = body_list.bodies;
-    for (int i = 0;i<body_list.size;i++) {
+
+void StepSymplecticEuler(World *w,float dt) {
+    RigidBody *bodies = w->body_list.bodies;
+    for (int i = 0;i<w->body_list.size;i++) {
+        if (bodies[i].mass <= 0.0f) continue;
+        bodies[i].velocity = Vector2Add(bodies[i].velocity,Vector2Scale(bodies[i].net_force,dt/bodies[i].mass));
+    }
+
+    for (int i = 0;i<w->body_list.size;i++) {
         if (bodies[i].mass <= 0.0f) continue;
         bodies[i].position = Vector2Add(bodies[i].position,Vector2Scale(bodies[i].velocity,dt));
     }
 }
 
-void UpdateVelocity(BodyList body_list,float dt) {
-    RigidBody *bodies = body_list.bodies;
-    for (int i = 0;i<body_list.size;i++) {
-        if (bodies[i].mass <= 0.0f) continue;
-        bodies[i].velocity = Vector2Add(bodies[i].velocity,Vector2Scale(bodies[i].net_force,dt/bodies[i].mass));
-    }
-}
-
-void ResetNetForce(BodyList body_list) {
+void ResetNetForces(World *w) {
+    BodyList body_list = w->body_list;
     for (int i = 0;i<body_list.size;i++) {
         body_list.bodies[i].net_force = (Vector2){0.0f,0.0f};
     }
 }
 
-void ApplySpringForce(World* world) {
-    SpringList spring_list = world->spring_list;
+void ApplySpringForce(World* w) {
+    SpringList spring_list = w->spring_list;
     for (int i = 0;i<spring_list.size;i++) {
         Spring currSpring = spring_list.springs[i];
         float length = getSpringExtension(currSpring);
@@ -63,6 +62,11 @@ void DestroyBodyList(BodyList list) {
 
     list.bodies = NULL;
     list.size = 0;
+}
+
+void ComputeNetForces(World* world) {
+    ApplyGravity(world);
+    ApplySpringForce(world);
 }
 
 void DestroyWorld(World* world) {

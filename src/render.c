@@ -1,6 +1,7 @@
 #include "render.h"
 
-void RenderBodies(BodyList body_list) {
+void RenderBodies(World* w) {
+    BodyList body_list = w->body_list;
     for (int i = 0;i<body_list.size;i++) {
         RigidBody b = body_list.bodies[i];
         if (b.shape == SHAPE_RECT)

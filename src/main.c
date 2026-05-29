@@ -25,12 +25,10 @@ int main() {
         float dt = GetFrameTime();
         BeginDrawing();
         ClearBackground(BLACK);
-        ResetNetForce(world->body_list);
-        ApplyGravity(world);
-        ApplySpringForce(world);
-        UpdateVelocity(world->body_list,dt);
-        UpdatePosition(world->body_list,dt);
-        RenderBodies(world->body_list);
+        ResetNetForces(world);
+        ComputeNetForces(world);
+        StepSymplecticEuler(world,dt);
+        RenderBodies(world);
         EndDrawing();
     }
 

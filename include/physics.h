@@ -7,13 +7,9 @@ void DestroyBodyList(BodyList list);
 
 void DestroyWorld(World* world);
 
-void UpdatePosition(BodyList body_list,float dt);
+void ComputeNetForces(World* world);
 
-void ApplySpringForce(World* world);
+void StepSymplecticEuler(World *w,float dt);
 
-void ApplyGravity(World* world);
-
-void UpdateVelocity(BodyList body_list,float dt) ;
-
-void ResetNetForce(BodyList body_list);
+void ResetNetForces(World* w);
 #endif
