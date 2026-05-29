@@ -20,16 +20,14 @@ void StepSymplecticEuler(World *w,float dt) {
 }
 
 void ResetNetForces(World *w) {
-    BodyList body_list = w->body_list;
-    for (int i = 0;i<body_list.size;i++) {
-        body_list.bodies[i].net_force = (Vector2){0.0f,0.0f};
+    for (int i = 0; i < w->body_list.size; i++) {
+        w->body_list.bodies[i].net_force = (Vector2){0.0f,0.0f};
     }
 }
 
 void ApplySpringForce(World* w) {
-    SpringList spring_list = w->spring_list;
-    for (int i = 0;i<spring_list.size;i++) {
-        Spring currSpring = spring_list.springs[i];
+    for (int i = 0; i < w->spring_list.size; i++) {
+        Spring currSpring = w->spring_list.springs[i];
         float length = getSpringExtension(currSpring);
         if (length < 1e-6f) continue;
 
@@ -46,22 +44,14 @@ void ApplySpringForce(World* w) {
 }
 
 void ApplyGravity(World* world) {
-    BodyList body_list = world->body_list;
-    for (int i = 0;i<body_list.size;i++) {
-        body_list.bodies[i].net_force = Vector2Add(body_list.bodies[i].net_force,(Vector2){0,980.0f * body_list.bodies[i].mass});
+    for (int i = 0; i < world->body_list.size; i++) {
+        world->body_list.bodies[i].net_force = Vector2Add(world->body_list.bodies[i].net_force,(Vector2){0,980.0f * world->body_list.bodies[i].mass});
     }
 }
 
 float getSpringExtension(Spring spring) {
     Vector2 length_vec = Vector2Subtract(spring.anchor1->position,spring.anchor2->position);
     return Vector2Length(length_vec);
-}
-
-void DestroyBodyList(BodyList list) {
-    free(list.bodies);
-
-    list.bodies = NULL;
-    list.size = 0;
 }
 
 void ComputeNetForces(World* world) {

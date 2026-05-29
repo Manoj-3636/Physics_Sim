@@ -3,8 +3,6 @@
 
 #include "world.h"
 
-void DestroyBodyList(BodyList list);
-
 void DestroyWorld(World* world);
 
 void ComputeNetForces(World* world);

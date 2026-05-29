@@ -3,6 +3,5 @@
 
 #include "world.h"
 
-BodyList SetupMovingBlock();
 World* SetupSpringPendulum();
 #endif
