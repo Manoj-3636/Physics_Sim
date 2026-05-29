@@ -1,24 +1,7 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#include "rigidbody.h"
-
-typedef struct {
-    RigidBody* anchor1;
-    RigidBody* anchor2;
-    float stiffness;
-    float rest_length;
-} Spring;
-
-typedef struct {
-    RigidBody* bodies;
-    int size;
-} BodyList;
-
-typedef struct {
-    Spring* springs;
-    int size;
-} SpringList;
+#include "world.h"
 
 void DestroyBodyList(BodyList list);
 

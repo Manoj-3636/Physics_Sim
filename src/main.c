@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "world.h"
 #include "physics.h"
 #include "render.h"
 #include "demos.h"
@@ -19,18 +20,19 @@ int main() {
 
 
 
-    BodyList body_list = SetupSpringPendulum();
-    SpringList spring_list ={ malloc(sizeof(Spring) * 2),2};
-    spring_list.springs[0] = (Spring){
-        &body_list.bodies[0],
-        &body_list.bodies[1],
+    World world;
+    world.body_list = SetupSpringPendulum();
+    world.spring_list = (SpringList){ malloc(sizeof(Spring) * 2), 2 };
+    world.spring_list.springs[0] = (Spring){
+        &world.body_list.bodies[0],
+        &world.body_list.bodies[1],
         20,
         25
     };
 
-    spring_list.springs[1] = (Spring){
-        &body_list.bodies[1],
-        &body_list.bodies[2],
+    world.spring_list.springs[1] = (Spring){
+        &world.body_list.bodies[1],
+        &world.body_list.bodies[2],
         20,
         25
     };
@@ -38,18 +40,18 @@ int main() {
         float dt = GetFrameTime();
         BeginDrawing();
         ClearBackground(BLACK);
-        ResetNetForce(body_list);
-        ApplyGravity(body_list);
-        ApplySpringForce(spring_list);
-        UpdateVelocity(body_list,dt);
-        UpdatePosition(body_list,dt);
-        RenderBodies(body_list);
+        ResetNetForce(world.body_list);
+        ApplyGravity(world.body_list);
+        ApplySpringForce(world.spring_list);
+        UpdateVelocity(world.body_list,dt);
+        UpdatePosition(world.body_list,dt);
+        RenderBodies(world.body_list);
         EndDrawing();
     }
 
-    DestroyBodyList(body_list);
-    free(spring_list.springs);
-    spring_list.springs = NULL;
+    DestroyBodyList(world.body_list);
+    free(world.spring_list.springs);
+    world.spring_list.springs = NULL;
     CloseWindow();
     return 0;
 }
