@@ -10,6 +10,7 @@ add_executable(sim
         src/demos.c
         include/rigidbody.h
         src/rigidbody.c
+        include/world.h
 )
 
 add_library(raylib STATIC IMPORTED)
