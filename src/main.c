@@ -20,38 +20,21 @@ int main() {
 
 
 
-    World world;
-    world.body_list = SetupSpringPendulum();
-    world.spring_list = (SpringList){ malloc(sizeof(Spring) * 2), 2 };
-    world.spring_list.springs[0] = (Spring){
-        &world.body_list.bodies[0],
-        &world.body_list.bodies[1],
-        20,
-        25
-    };
-
-    world.spring_list.springs[1] = (Spring){
-        &world.body_list.bodies[1],
-        &world.body_list.bodies[2],
-        20,
-        25
-    };
+    World* world = SetupSpringPendulum();
     while (!WindowShouldClose()) {
         float dt = GetFrameTime();
         BeginDrawing();
         ClearBackground(BLACK);
-        ResetNetForce(world.body_list);
-        ApplyGravity(world.body_list);
-        ApplySpringForce(world.spring_list);
-        UpdateVelocity(world.body_list,dt);
-        UpdatePosition(world.body_list,dt);
-        RenderBodies(world.body_list);
+        ResetNetForce(world->body_list);
+        ApplyGravity(world);
+        ApplySpringForce(world);
+        UpdateVelocity(world->body_list,dt);
+        UpdatePosition(world->body_list,dt);
+        RenderBodies(world->body_list);
         EndDrawing();
     }
 
-    DestroyBodyList(world.body_list);
-    free(world.spring_list.springs);
-    world.spring_list.springs = NULL;
+    DestroyWorld(world);
     CloseWindow();
     return 0;
 }

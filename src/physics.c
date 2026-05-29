@@ -27,7 +27,8 @@ void ResetNetForce(BodyList body_list) {
     }
 }
 
-void ApplySpringForce(SpringList spring_list) {
+void ApplySpringForce(World* world) {
+    SpringList spring_list = world->spring_list;
     for (int i = 0;i<spring_list.size;i++) {
         Spring currSpring = spring_list.springs[i];
         float length = getSpringExtension(currSpring);
@@ -45,7 +46,8 @@ void ApplySpringForce(SpringList spring_list) {
     }
 }
 
-void ApplyGravity(BodyList body_list) {
+void ApplyGravity(World* world) {
+    BodyList body_list = world->body_list;
     for (int i = 0;i<body_list.size;i++) {
         body_list.bodies[i].net_force = Vector2Add(body_list.bodies[i].net_force,(Vector2){0,980.0f * body_list.bodies[i].mass});
     }
@@ -61,4 +63,18 @@ void DestroyBodyList(BodyList list) {
 
     list.bodies = NULL;
     list.size = 0;
+}
+
+void DestroyWorld(World* world) {
+    if (world == NULL) return;
+    
+    free(world->body_list.bodies);
+    world->body_list.bodies = NULL;
+    world->body_list.size = 0;
+    
+    free(world->spring_list.springs);
+    world->spring_list.springs = NULL;
+    world->spring_list.size = 0;
+    
+    free(world);
 }

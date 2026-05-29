@@ -5,11 +5,13 @@
 
 void DestroyBodyList(BodyList list);
 
+void DestroyWorld(World* world);
+
 void UpdatePosition(BodyList body_list,float dt);
 
-void ApplySpringForce(SpringList spring_list);
+void ApplySpringForce(World* world);
 
-void ApplyGravity(BodyList body_list);
+void ApplyGravity(World* world);
 
 void UpdateVelocity(BodyList body_list,float dt) ;
 

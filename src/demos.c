@@ -15,7 +15,10 @@
 //     return (BodyList){bodies, 1};
 // }
 
-BodyList SetupSpringPendulum() {
+World* SetupSpringPendulum() {
+    World* world = malloc(sizeof(World));
+    
+    // Setup bodies
     RigidBody *bodies = malloc(sizeof(RigidBody) * 3);
 
     bodies[0] = (RigidBody){
@@ -45,5 +48,26 @@ BodyList SetupSpringPendulum() {
         {0,0}
     };
 
-    return (BodyList){bodies,3};
+    world->body_list = (BodyList){bodies, 3};
+    
+    // Setup springs
+    Spring* springs = malloc(sizeof(Spring) * 2);
+    
+    springs[0] = (Spring){
+        &world->body_list.bodies[0],
+        &world->body_list.bodies[1],
+        20,
+        25
+    };
+
+    springs[1] = (Spring){
+        &world->body_list.bodies[1],
+        &world->body_list.bodies[2],
+        20,
+        25
+    };
+    
+    world->spring_list = (SpringList){springs, 2};
+    
+    return world;
 }
