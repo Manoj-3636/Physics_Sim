@@ -56,7 +56,7 @@ World* SetupSpringPendulum() {
     springs[0] = (Spring){
         &world->body_list.bodies[0],
         &world->body_list.bodies[1],
-        20,
+        70,
         25
     };
 
