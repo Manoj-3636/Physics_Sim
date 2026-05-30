@@ -52,5 +52,8 @@ void RenderStatsHUD(Stats *s) {
 
     // Background rectangle
     // Text
-    DrawText(TextFormat("FPS: %d", s->fps), x + padding, y + padding, font_size, GREEN);
+    DrawText(TextFormat("FPS: %d", s->fps), x + padding, y + padding + font_size * 0, font_size, GREEN);
+    DrawText(TextFormat("Initial energy: %.6f",s->initial_energy),x+padding,y+padding+font_size * 1,font_size,GREEN);
+    DrawText(TextFormat("Current energy: %.6f",s->curr_energy),x+padding,y+padding+font_size * 2,font_size,GREEN);
+
 }

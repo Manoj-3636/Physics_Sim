@@ -10,7 +10,7 @@
 
 int main() {
     InitWindow(2200,1200,"Physics Simulation");
-    // SetTargetFPS(120);
+    SetTargetFPS(120);
     //TODO make the whole structure better
     //Make a ui element on the top left of the window that shows total energy initial energy and fps and
     // other statistics

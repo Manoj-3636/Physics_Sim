@@ -2,6 +2,7 @@
 #define PHYSICS_H
 
 #include "world.h"
+#define GRAVITY 980.0f
 
 void DestroyWorld(World* world);
 

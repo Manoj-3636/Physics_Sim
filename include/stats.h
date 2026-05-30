@@ -8,6 +8,8 @@
 
 typedef  struct {
     int fps;
+    float initial_energy;
+    float curr_energy;
 } Stats;
 
 Stats* InitializeStats(World *w);

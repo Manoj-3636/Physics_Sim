@@ -45,7 +45,7 @@ void ApplySpringForce(World* w) {
 
 void ApplyGravity(World* world) {
     for (int i = 0; i < world->body_list.size; i++) {
-        world->body_list.bodies[i].net_force = Vector2Add(world->body_list.bodies[i].net_force,(Vector2){0,980.0f * world->body_list.bodies[i].mass});
+        world->body_list.bodies[i].net_force = Vector2Add(world->body_list.bodies[i].net_force,(Vector2){0,GRAVITY * world->body_list.bodies[i].mass});
     }
 }
 
