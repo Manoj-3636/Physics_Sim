@@ -4,4 +4,5 @@
 #include "world.h"
 
 World* SetupSpringPendulum();
+World* SetupClothSimulation();
 #endif
