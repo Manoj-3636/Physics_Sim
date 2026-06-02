@@ -13,6 +13,8 @@ add_executable(sim
         include/world.h
         include/stats.h
         src/stats.c
+        include/interact.h
+        src/interact.c
 )
 
 add_library(raylib STATIC IMPORTED)
