@@ -31,15 +31,25 @@ void ApplySpringForce(World* w) {
         float length = getSpringExtension(currSpring);
         if (length < 1e-6f) continue;
 
+        Vector2 dirn = Vector2Normalize(Vector2Subtract(currSpring.anchor2->position, currSpring.anchor1->position));
 
         float force_mag = (length - currSpring.rest_length) * currSpring.stiffness;
         RigidBody* anchor1 = currSpring.anchor1;
         RigidBody* anchor2 = currSpring.anchor2;
 
-        Vector2 force_vector = Vector2Scale(Vector2Normalize(Vector2Subtract(anchor2->position,anchor1->position)),force_mag);
+        Vector2 force_vector = Vector2Scale(dirn, force_mag);
 
-        anchor1->net_force = Vector2Add(anchor1->net_force,force_vector);
-        anchor2->net_force = Vector2Add(anchor2->net_force,Vector2Negate(force_vector));
+        anchor1->net_force = Vector2Add(anchor1->net_force, force_vector);
+        anchor2->net_force = Vector2Add(anchor2->net_force, Vector2Negate(force_vector));
+
+        // --- axial damping ---
+        Vector2 relVel = Vector2Subtract(anchor2->velocity, anchor1->velocity);
+        float relVelAlongAxis = Vector2DotProduct(relVel, dirn);
+        float damp_mag = currSpring.damping * relVelAlongAxis;
+        Vector2 damp_vector = Vector2Scale(dirn, damp_mag);
+
+        anchor1->net_force = Vector2Add(anchor1->net_force, damp_vector);
+        anchor2->net_force = Vector2Add(anchor2->net_force, Vector2Negate(damp_vector));
     }
 }
 
@@ -54,9 +64,19 @@ float getSpringExtension(Spring spring) {
     return Vector2Length(length_vec);
 }
 
+void ApplyDrag(World* world) {
+    for (int i = 0; i < world->body_list.size; i++) {
+        RigidBody* b = &world->body_list.bodies[i];
+        if (b->mass <= 0.0f) continue;
+        Vector2 drag = Vector2Scale(b->velocity, -DRAG);
+        b->net_force = Vector2Add(b->net_force, drag);
+    }
+}
+
 void ComputeNetForces(World* world) {
     ApplyGravity(world);
     ApplySpringForce(world);
+    ApplyDrag(world);
 }
 
 void DestroyWorld(World* world) {

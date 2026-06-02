@@ -3,6 +3,7 @@
 
 #include "world.h"
 #define GRAVITY 980.0f
+#define DRAG    1.5f
 
 void DestroyWorld(World* world);
 

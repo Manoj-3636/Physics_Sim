@@ -26,6 +26,7 @@ typedef struct {
     RigidBody* anchor2;
     float stiffness;
     float rest_length;
+    float damping;
 } Spring;
 
 typedef struct {

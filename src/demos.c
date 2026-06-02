@@ -58,14 +58,16 @@ World* SetupSpringPendulum() {
         &world->body_list.bodies[0],
         &world->body_list.bodies[1],
         70,
-        25
+        25,
+        5.0f
     };
 
     springs[1] = (Spring){
         &world->body_list.bodies[1],
         &world->body_list.bodies[2],
         20,
-        25
+        25,
+        5.0f
     };
     
     world->spring_list = (SpringList){springs, 2};
@@ -119,8 +121,9 @@ World* SetupClothSimulation() {
             springs[s++] = (Spring){
                 &world->body_list.bodies[i],
                 &world->body_list.bodies[j],
-                1000,
-                spacing
+                2500,
+                spacing,
+                10.0f
             };
         }
     }
@@ -132,8 +135,9 @@ World* SetupClothSimulation() {
             springs[s++] = (Spring){
                 &world->body_list.bodies[i],
                 &world->body_list.bodies[j],
-                1000,
-                spacing
+                2500,
+                spacing,
+                10.0f
             };
         }
     }
@@ -145,8 +149,9 @@ World* SetupClothSimulation() {
             springs[s++] = (Spring){
                 &world->body_list.bodies[i],
                 &world->body_list.bodies[j],
-                800,
-                spacing * sqrtf(2.0f)
+                2000,
+                spacing * sqrtf(2.0f),
+                8.0f
             };
         }
     }
@@ -158,8 +163,9 @@ World* SetupClothSimulation() {
             springs[s++] = (Spring){
                 &world->body_list.bodies[i],
                 &world->body_list.bodies[j],
-                800,
-                spacing * sqrtf(2.0f)
+                2000,
+                spacing * sqrtf(2.0f),
+                8.0f
             };
         }
     }
