@@ -82,7 +82,7 @@ World* SetupClothSimulation() {
     int cols = 6;
     int num_bodies = rows * cols;
     
-    float spacing = 50.0f;
+    float spacing = 75.0f;
     float startX = 975.0f;
     float startY = 100.0f;
     
@@ -101,6 +101,9 @@ World* SetupClothSimulation() {
                 {0, 0},
                 {0, 0}
             };
+
+            bodies[idx].position.x += (rand() / (float)RAND_MAX - 0.5f) * 0.01f;
+            bodies[idx].position.y += (rand() / (float)RAND_MAX - 0.5f) * 0.01f;
         }
     }
     
@@ -109,7 +112,7 @@ World* SetupClothSimulation() {
     int horiz = rows * (cols - 1);
     int vert  = (rows - 1) * cols;
     int diag  = (rows - 1) * (cols - 1);
-    int num_springs = horiz + vert + diag + diag;
+    int num_springs = horiz + vert;
     
     Spring* springs = malloc(sizeof(Spring) * num_springs);
     int s = 0;
@@ -141,34 +144,34 @@ World* SetupClothSimulation() {
             };
         }
     }
-    
-    for (int r = 0; r < rows - 1; r++) {
-        for (int c = 0; c < cols - 1; c++) {
-            int i = r * cols + c;
-            int j = (r + 1) * cols + (c + 1);
-            springs[s++] = (Spring){
-                &world->body_list.bodies[i],
-                &world->body_list.bodies[j],
-                2000,
-                spacing * sqrtf(2.0f),
-                8.0f
-            };
-        }
-    }
-    
-    for (int r = 0; r < rows - 1; r++) {
-        for (int c = 1; c < cols; c++) {
-            int i = r * cols + c;
-            int j = (r + 1) * cols + (c - 1);
-            springs[s++] = (Spring){
-                &world->body_list.bodies[i],
-                &world->body_list.bodies[j],
-                2000,
-                spacing * sqrtf(2.0f),
-                8.0f
-            };
-        }
-    }
+
+    // for (int r = 0; r < rows - 1; r++) {
+    //     for (int c = 0; c < cols - 1; c++) {
+    //         int i = r * cols + c;
+    //         int j = (r + 1) * cols + (c + 1);
+    //         springs[s++] = (Spring){
+    //             &world->body_list.bodies[i],
+    //             &world->body_list.bodies[j],
+    //             2000,
+    //             spacing * sqrtf(2.0f),
+    //             8.0f
+    //         };
+    //     }
+    // }
+    //
+    // for (int r = 0; r < rows - 1; r++) {
+    //     for (int c = 1; c < cols; c++) {
+    //         int i = r * cols + c;
+    //         int j = (r + 1) * cols + (c - 1);
+    //         springs[s++] = (Spring){
+    //             &world->body_list.bodies[i],
+    //             &world->body_list.bodies[j],
+    //             2000,
+    //             spacing * sqrtf(2.0f),
+    //             8.0f
+    //         };
+    //     }
+    // }
     
     world->spring_list = (SpringList){springs, num_springs};
     
